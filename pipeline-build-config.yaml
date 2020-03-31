@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: gsi-enablement-one.react-ui-tcs-demo-ab
+  labels:
+    app: react-ui-tcs-demo-ab
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: secret101
+  source:
+    git:
+      uri: 'https://github.com/gsi-enablement-one/react-ui-tcs-demo-ab.git'
+      ref: master
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+      env:
+        - name: CLOUD_NAME
+          value: openshift
+        - name: NAMESPACE
+          value: dev-ab
+        - name: BRANCH
+          value: master
